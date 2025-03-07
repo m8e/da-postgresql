@@ -72,6 +72,10 @@ echo "[OK] Rewriting web-server configs";
 cd /usr/local/directadmin/custombuild;
 mkdir -p custom;
 c=$(grep -m1 -c "^phppgadmin=" custom/webapps.list 2>/dev/null);
+if [ -z  "${c}" ]; then
+    echo "phppgadmin=phpPgAdmin" >> custom/webapps.list;
+    ./build rewrite_confs
+fi;
 if [ "0" == "${c}" ]; then
     echo "phppgadmin=phpPgAdmin" >> custom/webapps.list;
     ./build rewrite_confs
